@@ -1,0 +1,260 @@
+/* .module-animation {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #dfeee7;
+  box-shadow: 0 10px 25px rgba(23, 107, 58, 0.1);
+}
+
+.module-animation__canvas {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.module-animation__canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.module-animation__caption {
+  position: absolute;
+  left: 50%;
+  bottom: 4.25rem;
+  transform: translateX(-50%);
+  max-width: 90%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #176b3a;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.module-animation__footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.module-animation__progress-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #c7e3d1;
+  overflow: hidden;
+}
+
+.module-animation__progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffb703, #fb8500);
+  transition: width 0.15s linear;
+}
+
+.module-animation__skip {
+  flex-shrink: 0;
+  background: #176b3a;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.module-animation__skip:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .module-animation__caption {
+    font-size: 0.85rem;
+    bottom: 3.6rem;
+    padding: 0.5rem 0.9rem;
+  }
+} */
+
+/* Frame around the Three.js animation. Colours come from the theme
+   variables set by ModuleDetail (--md-*), with fallbacks so it still
+   looks right on its own. */
+
+.module-animation {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border: 3px solid var(--ink, #24204A);
+  border-radius: 26px;
+  box-shadow: 0 6px 0 var(--ink, #24204A);
+  overflow: hidden;
+}
+
+.module-animation__canvas {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--md-tint, #D6ECFF);
+}
+
+.module-animation__canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* "Now playing" tag */
+.module-animation__tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  background: #fff;
+  border: 2px solid var(--ink, #24204A);
+  border-radius: 999px;
+  font-family: 'Fredoka', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink, #24204A);
+}
+
+.module-animation__dot {
+  width: 10px;
+  height: 10px;
+  background: #FF6F61;
+  border-radius: 50%;
+  animation: ma-blink 1.2s ease-in-out infinite;
+}
+
+/* Speech-bubble caption */
+.module-animation__caption {
+  position: absolute;
+  left: 50%;
+  bottom: 84px;
+  transform: translateX(-50%);
+  max-width: 88%;
+  padding: 10px 20px;
+  background: #fff;
+  border: 3px solid var(--ink, #24204A);
+  border-radius: 18px;
+  box-shadow: 0 4px 0 var(--ink, #24204A);
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--ink, #24204A);
+  animation: ma-pop 0.25s ease both;
+}
+
+/* Footer: progress + time + skip */
+.module-animation__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--md-tint, #FFF1C2);
+  border-top: 3px solid var(--ink, #24204A);
+}
+
+.module-animation__progress-track {
+  flex: 1;
+  height: 18px;
+  background: #fff;
+  border: 3px solid var(--ink, #24204A);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.module-animation__progress-fill {
+  height: 100%;
+  background: var(--md-main, #FFC93C);
+  border-radius: 999px;
+  transition: width 0.15s linear;
+}
+
+.module-animation__time {
+  min-width: 40px;
+  text-align: right;
+  font-family: 'Fredoka', system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--ink, #24204A);
+}
+
+.module-animation__skip {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  background: #fff;
+  color: var(--ink, #24204A);
+  border: 3px solid var(--ink, #24204A);
+  border-radius: 999px;
+  box-shadow: 0 4px 0 var(--ink, #24204A);
+  font-family: 'Fredoka', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.module-animation__skip:hover {
+  background: var(--md-tint, #FFF1C2);
+}
+
+.module-animation__skip:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink, #24204A);
+}
+
+.module-animation__skip:focus-visible {
+  outline: 3px solid #6C4CF5;
+  outline-offset: 3px;
+}
+
+@keyframes ma-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+@keyframes ma-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(-50%); }
+}
+
+@media (max-width: 560px) {
+  .module-animation__caption {
+    bottom: 76px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+  .module-animation__tag {
+    top: 10px;
+    left: 10px;
+  }
+  .module-animation__footer {
+    gap: 8px;
+    padding: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module-animation__dot,
+  .module-animation__caption {
+    animation: none;
+  }
+  .module-animation__caption {
+    transform: translateX(-50%);
+  }
+  .module-animation__skip {
+    transition: none;
+  }
+}
