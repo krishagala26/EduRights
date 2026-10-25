@@ -1,11 +1,3 @@
-// Owner: Module 3 & Module 4 (Playgrounds Not Factories / The Digital Shield),
-// extended with Module 5 & Module 6 (Digital Complaint Boxes / The Magic Number).
-// Shows a short Three.js animation, then a gamified quiz, for the module
-// matching the URL slug. Modules 5 and 6 add a "Learn the Key Facts" stage
-// between the animation and the quiz (opt-in through the `learn` field, so
-// Modules 3 and 4 keep their original flow). Other module slugs show a
-// "coming soon" placeholder so teammates' routes don't break.
-
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Play, ArrowLeft, RotateCcw, Sparkles, ExternalLink } from 'lucide-react';
@@ -13,10 +5,14 @@ import { Play, ArrowLeft, RotateCcw, Sparkles, ExternalLink } from 'lucide-react
 import ModuleAnimation from '../components/modules/ModuleAnimation.jsx';
 import ModuleQuiz from '../components/modules/ModuleQuiz.jsx';
 
+import EducationRightsScene from '../components/modules/EducationRightsScene.js';
+import PersonalSafetyScene from '../components/modules/PersonalSafetyScene.js';
 import ChildLabourScene from '../components/modules/ChildLabourScene.js';
 import InternetSafetyScene from '../components/modules/InternetSafetyScene.js';
 import ComplaintPortalsScene from '../components/modules/ComplaintPortalsScene.js';
 import EmergencyActionScene from '../components/modules/EmergencyActionScene.js';
+import educationRightsQuiz from '../components/modules/educationRightsQuiz.js';
+import personalSafetyQuiz from '../components/modules/personalSafetyQuiz.js';
 import childLabourQuiz from '../components/modules/childLabourQuiz.js';
 import internetSafetyQuiz from '../components/modules/internetSafetyQuiz.js';
 import complaintPortalsQuiz from '../components/modules/complaintPortalsQuiz.js';
@@ -36,6 +32,28 @@ import './ModuleLearn.css';
 // Leave it null until that feature exists; the Explore More button stays
 // disabled instead of linking to a broken page.
 const MODULE_CONFIG = {
+  'education': {
+    number: 1,
+    emoji: '📚',
+    theme: 'sun',
+    title: 'The Shield of Knowledge',
+    topic: 'The RTE Act, 2009 (Right to Free and Compulsory Education)',
+    blurb:
+      "Hi, I'm Ollie! Watch how the Golden Book of the RTE Act unlocks the school gate, then show what you learned in a quick quiz.",
+    scene: EducationRightsScene,
+    quiz: educationRightsQuiz,
+  },
+  'personal-safety': {
+    number: 2,
+    emoji: '🛡️',
+    theme: 'sky',
+    title: 'The Body Guard Rules',
+    topic: 'The POCSO Act, 2012 (Protection from Harm & Abuse)',
+    blurb:
+      "Hi, I'm Ollie! Watch how your Personal Safety Bubble and Trusted Adults keep you safe, then show what you learned in a quick quiz.",
+    scene: PersonalSafetyScene,
+    quiz: personalSafetyQuiz,
+  },
   'child-labour': {
     number: 3,
     emoji: '⚽',
@@ -192,7 +210,7 @@ export default function ModuleDetail() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   // Use the :id param, or fall back to the last part of the URL
-  // (e.g. /modules/internet-safety -> "internet-safety").
+  // (e.g. /modules/education -> "education").
   const slug = id ?? pathname.split('/').filter(Boolean).pop();
   const config = MODULE_CONFIG[slug];
 
@@ -204,7 +222,7 @@ export default function ModuleDetail() {
 
   const goBack = () => navigate('/modules');
 
-  // Modules 1 and 2 land here until a teammate builds them.
+  // Modules 1, 2, 5, 6 land here until a teammate builds them.
   if (!config) {
     return (
       <div className="module-detail theme-sky">
