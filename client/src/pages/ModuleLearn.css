@@ -1,0 +1,165 @@
+/* Styles for the "Learn the Key Facts" stage (Modules 5 and 6) only.
+   Self-contained: it does not edit ModuleDetail.css or affect Modules 3/4.
+   It only sets its own --learn-* variables, so it works with any theme. */
+
+.module-detail {
+  --learn-ink: #24204a;
+  --learn-accent: #6c4cf5;
+  --learn-soft: #efe8ff;
+}
+.module-detail.theme-grape {
+  --learn-accent: #7c4dff;
+  --learn-soft: #efe8ff;
+}
+.module-detail.theme-orange {
+  --learn-accent: #ff8a1f;
+  --learn-soft: #fff0df;
+}
+
+.module-learn {
+  display: grid;
+  gap: 18px;
+  color: var(--learn-ink);
+}
+
+.module-learn__heading {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+}
+
+.module-learn__intro {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.module-learn__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.module-learn__card {
+  background: #fff;
+  border: 3px solid var(--learn-ink);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 5px 0 var(--learn-accent);
+}
+
+.module-learn__card-emoji {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.module-learn__card h3 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.module-learn__card p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.module-learn__remember {
+  background: var(--learn-soft);
+  border: 3px dashed var(--learn-accent);
+  border-radius: 20px;
+  padding: 16px 18px;
+}
+
+.module-learn__remember h3 {
+  margin: 0 0 8px;
+}
+
+.module-learn__remember ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 6px;
+  line-height: 1.45;
+}
+
+.module-learn__links {
+  background: #fff;
+  border: 2px solid var(--learn-ink);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.module-learn__links h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.module-learn__links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.module-learn__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--learn-ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.module-learn__link-note {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.module-learn__disclaimer {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.module-learn__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.module-learn__actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Visible keyboard focus for everything in this stage */
+.module-learn a:focus-visible,
+.module-learn button:focus-visible {
+  outline: 3px solid var(--learn-ink);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Screen-reader-only text */
+.module-learn__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .module-learn__actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

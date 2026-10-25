@@ -1,534 +1,40 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import "../ModuleDetail.css";
-
-// const SCENARIOS = [
-//   {
-//     id: 1,
-//     title: "Scenario 1: The Gaming Request",
-//     character: "🎮 GamerZone App",
-//     question:
-//       "A popular online game asks for your full real name, home address, and phone number to unlock a free rare character skin. What do you do?",
-//     options: [
-//       {
-//         text: "Fill in my real name and address to get the rare skin quickly!",
-//         correct: false,
-//         feedback:
-//           "Oops! Never give away personal data like address or real name for game perks. Strangers could track your real location.",
-//         points: 0,
-//       },
-//       {
-//         text: "Ask a parent/guardian first, or use a nickname and skip sharing personal details.",
-//         correct: true,
-//         feedback:
-//           "Awesome choice! Protecting personal details keeps you safe from online tracking.",
-//         points: 25,
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     title: "Scenario 2: The Social Photo Post",
-//     character: "📸 School Group Chat",
-//     question:
-//       "Your classmate posts a funny photo of another student looking embarrassed without asking them first. People are laughing. What do you do?",
-//     options: [
-//       {
-//         text: "Share the photo with your other friends so everyone can laugh.",
-//         correct: false,
-//         feedback:
-//           "Sharing photos without permission damages trust and contributes to cyberbullying.",
-//         points: 0,
-//       },
-//       {
-//         text: "Do not forward it. Politely ask the sender to delete it or report it to a trusted adult.",
-//         correct: true,
-//         feedback:
-//           "Spot on! Respecting others' privacy online builds a safer community.",
-//         points: 25,
-//       },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     title: "Scenario 3: Creating a Super Password",
-//     character: "🔐 Account Guardian",
-//     question:
-//       "Which of these passwords is the strongest and safest for your EduRights profile?",
-//     options: [
-//       {
-//         text: "myname1234",
-//         correct: false,
-//         feedback:
-//           "Too simple! Easy passwords can be guessed quickly by automated tools.",
-//         points: 0,
-//       },
-//       {
-//         text: "S2h2i3e!l#d99",
-//         correct: true,
-//         feedback:
-//           "Great job! Mixing uppercase, lowercase, numbers, and symbols makes a strong password shield.",
-//         points: 25,
-//       },
-//     ],
-//   },
-//   {
-//     id: 4,
-//     title: "Scenario 4: The Suspicious Link",
-//     character: "📩 Unknown Email Message",
-//     question:
-//       "You get a message saying: 'CONGRATS! You won a free tablet! Click this link right now!' What is your move?",
-//     options: [
-//       {
-//         text: "Click the link immediately before the gift expires!",
-//         correct: false,
-//         feedback:
-//           "Watch out! Suspicious links often download malware or steal your account info.",
-//         points: 0,
-//       },
-//       {
-//         text: "Close the message, don't click the link, and show it to a parent or teacher.",
-//         correct: true,
-//         feedback: "Perfect instinct! You dodged a phishing link safely.",
-//         points: 25,
-//       },
-//     ],
-//   },
-// ];
-
-// function ModuleDetail() {
-//   const navigate = useNavigate();
-//   const [currentStage, setCurrentStage] = useState(0);
-//   const [score, setScore] = useState(0);
-//   const [selectedOption, setSelectedOption] = useState(null);
-//   const [showFeedback, setShowFeedback] = useState(false);
-//   const [isCompleted, setIsCompleted] = useState(false);
-
-//   const activeScenario = SCENARIOS[currentStage];
-
-//   const handleSelectOption = (option) => {
-//     if (showFeedback) return;
-//     setSelectedOption(option);
-//     setShowFeedback(true);
-//     if (option.correct) {
-//       setScore((prev) => prev + option.points);
-//     }
-//   };
-
-//   const handleNext = () => {
-//     setShowFeedback(false);
-//     setSelectedOption(null);
-//     if (currentStage + 1 < SCENARIOS.length) {
-//       setCurrentStage((prev) => prev + 1);
-//     } else {
-//       setIsCompleted(true);
-//     }
-//   };
-
-//   const handleRestart = () => {
-//     setCurrentStage(0);
-//     setScore(0);
-//     setSelectedOption(null);
-//     setShowFeedback(false);
-//     setIsCompleted(false);
-//   };
-
-//   return (
-//     <div className="module-detail-page">
-//       {/* Header */}
-//       <div className="module-detail-header">
-//         <button className="back-btn" onClick={() => navigate("/modules")}>
-//           ← Back to Modules
-//         </button>
-//         <h1>💻 Module 4: The Digital Shield</h1>
-//         <p>Master online safety, protect your privacy, and beat cyber threats!</p>
-//       </div>
-
-//       {/* Main Interactive Card */}
-//       <div className="module-detail-container">
-//         {!isCompleted ? (
-//           <>
-//             {/* Progress Bar */}
-//             <div className="status-bar">
-//               <div className="stage-indicator">
-//                 Scenario {currentStage + 1} of {SCENARIOS.length}
-//               </div>
-//               <div className="score-meter">
-//                 🛡️ Safety Score: <strong>{score} / 100 PTS</strong>
-//               </div>
-//             </div>
-
-//             {/* Scenario Display */}
-//             <div className="scenario-card">
-//               <div className="badge-tag">{activeScenario.character}</div>
-//               <h2>{activeScenario.title}</h2>
-//               <p className="question-text">{activeScenario.question}</p>
-
-//               {/* Options */}
-//               <div className="options-grid">
-//                 {activeScenario.options.map((option, idx) => (
-//                   <button
-//                     key={idx}
-//                     className={`option-card ${
-//                       selectedOption === option
-//                         ? option.correct
-//                           ? "correct-choice"
-//                           : "wrong-choice"
-//                         : ""
-//                     }`}
-//                     onClick={() => handleSelectOption(option)}
-//                     disabled={showFeedback}
-//                   >
-//                     <span className="option-number">
-//                       {idx === 0 ? "A" : "B"}
-//                     </span>
-//                     <span>{option.text}</span>
-//                   </button>
-//                 ))}
-//               </div>
-
-//               {/* Feedback Alert */}
-//               {showFeedback && (
-//                 <div
-//                   className={`feedback-box ${
-//                     selectedOption?.correct ? "success" : "warning"
-//                   }`}
-//                 >
-//                   <h4>
-//                     {selectedOption?.correct
-//                       ? "✅ Excellent Defense!"
-//                       : "⚠️ Shield Alert!"}
-//                   </h4>
-//                   <p>{selectedOption?.feedback}</p>
-//                   <button className="next-btn" onClick={handleNext}>
-//                     {currentStage + 1 < SCENARIOS.length
-//                       ? "Next Challenge →"
-//                       : "Finish Module 🏆"}
-//                   </button>
-//                 </div>
-//               )}
-//             </div>
-//           </>
-//         ) : (
-//           /* Completion Screen */
-//           <div className="completion-card">
-//             <div className="trophy-icon">🏆</div>
-//             <h2>Module Completed!</h2>
-//             <p>
-//               You earned the <strong>Digital Shield Defender Badge</strong>!
-//             </p>
-//             <div className="final-score">
-//               Final Score: <span>{score} / 100</span>
-//             </div>
-
-//             <div className="key-takeaways">
-//               <h3>Key Rules to Remember:</h3>
-//               <ul>
-//                 <li>
-//                   🔹 <strong>Keep it Secret:</strong> Never share passwords, home
-//                   address, or personal info online.
-//                 </li>
-//                 <li>
-//                   🔹 <strong>Ask Before Posting:</strong> Respect other people's
-//                   privacy and photos.
-//                 </li>
-//                 <li>
-//                   🔹 <strong>Don't Click Unknown Links:</strong> Beware of
-//                   suspicious free offers or popups.
-//                 </li>
-//                 <li>
-//                   🔹 <strong>Report Cyberbullying:</strong> Tell a trusted adult
-//                   or use safe reporting portals.
-//                 </li>
-//               </ul>
-//             </div>
-
-//             <div className="action-buttons">
-//               <button className="retry-btn" onClick={handleRestart}>
-//                 🔄 Replay Module
-//               </button>
-//               <button
-//                 className="finish-btn"
-//                 onClick={() => navigate("/modules")}
-//               >
-//                 Return to All Modules
-//               </button>
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default ModuleDetail;
-
-
-// Owner: Module 3 & Module 4 (Playgrounds Not Factories / The Digital Shield)
+// Owner: Module 3 & Module 4 (Playgrounds Not Factories / The Digital Shield),
+// extended with Module 5 & Module 6 (Digital Complaint Boxes / The Magic Number).
 // Shows a short Three.js animation, then a gamified quiz, for the module
-// matching the URL slug. Other module slugs show a "coming soon" placeholder
-// so teammates' routes don't break while their modules aren't built yet.
-
-// import { useState } from 'react';
-// import { useParams, useNavigate } from 'react-router-dom';
-// import { Play, ArrowLeft, Sparkles } from 'lucide-react';
-
-// import ModuleAnimation from '../components/modules/ModuleAnimation.jsx';
-// import ModuleQuiz from '../components/modules/ModuleQuiz.jsx';
-
-// import ChildLabourScene from '../components/modules/ChildLabourScene.js';
-// import InternetSafetyScene from '../components/modules/InternetSafetyScene.js';
-
-// import childLabourQuiz from '../components/modules/childLabourQuiz.js';
-// import internetSafetyQuiz from '../components/modules/internetSafetyQuiz.js';
-
-// import './ModuleDetail.css';
-
-// const MODULE_CONFIG = {
-//   'child-labour': {
-//     title: 'Playgrounds, Not Factories',
-//     subtitle: 'Module 3 — Anti-Child Labour',
-//     blurb:
-//       "Watch Maya's short story, then answer a few quick questions to earn XP and RightPoints.",
-//     scene: ChildLabourScene,
-//     quiz: childLabourQuiz,
-//   },
-//   'internet-safety': {
-//     title: 'The Digital Shield',
-//     subtitle: 'Module 4 — Online Safety, Privacy & Cyber-Awareness',
-//     blurb:
-//       "Watch Zee activate their digital shield, then answer a few quick questions to earn XP and RightPoints.",
-//     scene: InternetSafetyScene,
-//     quiz: internetSafetyQuiz,
-//   },
-// };
-
-// export default function ModuleDetail() {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const config = MODULE_CONFIG[id];
-
-//   // intro -> animation -> quiz -> done
-//   const [stage, setStage] = useState('intro');
-//   const [result, setResult] = useState(null);
-
-//   const handleFinishQuiz = (res) => {
-//     setResult(res);
-//     setStage('done');
-//   };
-
-//   // Modules 1, 2, 5, 6 land here until a teammate builds them.
-//   if (!config) {
-//     return (
-//       <div className="module-detail module-detail--placeholder">
-//         <button type="button" className="module-detail__back" onClick={() => navigate('/modules')}>
-//           <ArrowLeft size={18} /> Back to Modules
-//         </button>
-//         <div className="module-detail__placeholder-card">
-//           <Sparkles size={32} />
-//           <h2>Coming soon!</h2>
-//           <p>This module is still being built by the team. Check back soon.</p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="module-detail">
-//       <button type="button" className="module-detail__back" onClick={() => navigate('/modules')}>
-//         <ArrowLeft size={18} /> Back to Modules
-//       </button>
-
-//       <div className="module-detail__header">
-//         <span className="module-detail__eyebrow">{config.subtitle}</span>
-//         <h1>{config.title}</h1>
-//         <p>{config.blurb}</p>
-//       </div>
-
-//       {stage === 'intro' && (
-//         <div className="module-detail__intro-card">
-//           <button
-//             type="button"
-//             className="module-detail__start-btn"
-//             onClick={() => setStage('animation')}
-//           >
-//             <Play size={20} fill="currentColor" />
-//             Watch &amp; Start
-//           </button>
-//         </div>
-//       )}
-
-//       {stage === 'animation' && (
-//         <ModuleAnimation scene={config.scene} onComplete={() => setStage('quiz')} />
-//       )}
-
-//       {stage === 'quiz' && <ModuleQuiz quiz={config.quiz} onFinish={handleFinishQuiz} />}
-
-//       {stage === 'done' && result && (
-//         <div className="module-detail__done-card">
-//           <h2>Module complete! 🎉</h2>
-//           <p>
-//             You scored {result.correctCount} / {result.total} and earned{' '}
-//             <strong>{result.totalXp} XP</strong>.
-//           </p>
-//           <button
-//             type="button"
-//             className="module-detail__back-dashboard-btn"
-//             onClick={() => navigate('/modules')}
-//           >
-//             Back to Modules
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// Owner: Module 3 & Module 4 (Playgrounds Not Factories / The Digital Shield)
-// Shows a short Three.js animation, then a gamified quiz, for the module
-// matching the URL slug. Other module slugs show a "coming soon" placeholder
-// so teammates' routes don't break while their modules aren't built yet.
-
-// import { useState } from 'react';
-// import { useParams, useNavigate, useLocation } from 'react-router-dom';
-// import { Play, ArrowLeft, Sparkles } from 'lucide-react';
-
-// import ModuleAnimation from '../components/modules/ModuleAnimation.jsx';
-// import ModuleQuiz from '../components/modules/ModuleQuiz.jsx';
-
-// import ChildLabourScene from '../components/modules/ChildLabourScene.js';
-// import InternetSafetyScene from '../components/modules/InternetSafetyScene.js';
-
-// import childLabourQuiz from '../components/modules/childLabourQuiz.js';
-// import internetSafetyQuiz from '../components/modules/internetSafetyQuiz.js';
-
-// import './ModuleDetail.css';
-
-// const MODULE_CONFIG = {
-//   'child-labour': {
-//     title: 'Playgrounds, Not Factories',
-//     subtitle: 'Module 3 — Anti-Child Labour',
-//     blurb:
-//       "Watch Maya's short story, then answer a few quick questions to earn XP and RightPoints.",
-//     scene: ChildLabourScene,
-//     quiz: childLabourQuiz,
-//   },
-//   'internet-safety': {
-//     title: 'The Digital Shield',
-//     subtitle: 'Module 4 — Online Safety, Privacy & Cyber-Awareness',
-//     blurb:
-//       "Watch Zee activate their digital shield, then answer a few quick questions to earn XP and RightPoints.",
-//     scene: InternetSafetyScene,
-//     quiz: internetSafetyQuiz,
-//   },
-// };
-
-// export default function ModuleDetail() {
-//   const { id } = useParams();
-//   const { pathname } = useLocation();
-//   const navigate = useNavigate();
-//   // Use the :id param, or fall back to the last part of the URL
-//   // (e.g. /modules/internet-safety -> "internet-safety").
-//   const slug = id ?? pathname.split('/').filter(Boolean).pop();
-//   const config = MODULE_CONFIG[slug];
-
-//   // intro -> animation -> quiz -> done
-//   const [stage, setStage] = useState('intro');
-//   const [result, setResult] = useState(null);
-
-//   const handleFinishQuiz = (res) => {
-//     setResult(res);
-//     setStage('done');
-//   };
-
-//   // Modules 1, 2, 5, 6 land here until a teammate builds them.
-//   if (!config) {
-//     return (
-//       <div className="module-detail module-detail--placeholder">
-//         <button type="button" className="module-detail__back" onClick={() => navigate('/modules')}>
-//           <ArrowLeft size={18} /> Back to Modules
-//         </button>
-//         <div className="module-detail__placeholder-card">
-//           <Sparkles size={32} />
-//           <h2>Coming soon!</h2>
-//           <p>This module is still being built by the team. Check back soon.</p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="module-detail">
-//       <button type="button" className="module-detail__back" onClick={() => navigate('/modules')}>
-//         <ArrowLeft size={18} /> Back to Modules
-//       </button>
-
-//       <div className="module-detail__header">
-//         <span className="module-detail__eyebrow">{config.subtitle}</span>
-//         <h1>{config.title}</h1>
-//         <p>{config.blurb}</p>
-//       </div>
-
-//       {stage === 'intro' && (
-//         <div className="module-detail__intro-card">
-//           <button
-//             type="button"
-//             className="module-detail__start-btn"
-//             onClick={() => setStage('animation')}
-//           >
-//             <Play size={20} fill="currentColor" />
-//             Watch &amp; Start
-//           </button>
-//         </div>
-//       )}
-
-//       {stage === 'animation' && (
-//         <ModuleAnimation scene={config.scene} onComplete={() => setStage('quiz')} />
-//       )}
-
-//       {stage === 'quiz' && <ModuleQuiz quiz={config.quiz} onFinish={handleFinishQuiz} />}
-
-//       {stage === 'done' && result && (
-//         <div className="module-detail__done-card">
-//           <h2>Module complete! 🎉</h2>
-//           <p>
-//             You scored {result.correctCount} / {result.total} and earned{' '}
-//             <strong>{result.totalXp} XP</strong>.
-//           </p>
-//           <button
-//             type="button"
-//             className="module-detail__back-dashboard-btn"
-//             onClick={() => navigate('/modules')}
-//           >
-//             Back to Modules
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// Owner: Module 3 & Module 4 (Playgrounds Not Factories / The Digital Shield)
-// Shows a short Three.js animation, then a gamified quiz, for the module
-// matching the URL slug. Other module slugs show a "coming soon" placeholder
-// so teammates' routes don't break while their modules aren't built yet.
+// matching the URL slug. Modules 5 and 6 add a "Learn the Key Facts" stage
+// between the animation and the quiz (opt-in through the `learn` field, so
+// Modules 3 and 4 keep their original flow). Other module slugs show a
+// "coming soon" placeholder so teammates' routes don't break.
 
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Play, ArrowLeft, RotateCcw, Sparkles } from 'lucide-react';
+import { Play, ArrowLeft, RotateCcw, Sparkles, ExternalLink } from 'lucide-react';
 
 import ModuleAnimation from '../components/modules/ModuleAnimation.jsx';
 import ModuleQuiz from '../components/modules/ModuleQuiz.jsx';
 
 import ChildLabourScene from '../components/modules/ChildLabourScene.js';
 import InternetSafetyScene from '../components/modules/InternetSafetyScene.js';
-
+import ComplaintPortalsScene from '../components/modules/ComplaintPortalsScene.js';
+import EmergencyActionScene from '../components/modules/EmergencyActionScene.js';
 import childLabourQuiz from '../components/modules/childLabourQuiz.js';
 import internetSafetyQuiz from '../components/modules/internetSafetyQuiz.js';
+import complaintPortalsQuiz from '../components/modules/complaintPortalsQuiz.js';
+import emergencyActionQuiz from '../components/modules/emergencyActionQuiz.js';
+
+import {
+  complaintPortalsLearn,
+  emergencyActionLearn,
+} from '../components/modules/moduleLearnContent.js';
 
 import './ModuleDetail.css';
+import './ModuleLearn.css';
 
 // "theme" picks the colour set (see .theme-* in ModuleDetail.css).
+// "learn" (optional) adds the "Learn the Key Facts" stage before the quiz.
+// "exploreMorePath" (optional) is the future Knowledge & Articles route.
+// Leave it null until that feature exists; the Explore More button stays
+// disabled instead of linking to a broken page.
 const MODULE_CONFIG = {
   'child-labour': {
     number: 3,
@@ -551,6 +57,32 @@ const MODULE_CONFIG = {
       "Hi, I'm Ollie! Watch how Zee's digital shield keeps them safe, then show what you learned in a quick quiz.",
     scene: InternetSafetyScene,
     quiz: internetSafetyQuiz,
+  },
+  'complaint-portals': {
+    number: 5,
+    emoji: '📮',
+    theme: 'grape',
+    title: 'Digital Complaint Boxes',
+    topic: 'NCPCR Portals',
+    blurb:
+      "Hi, I'm Ollie! Watch how Asha's message finds help, learn the key facts with me, then try a quick quiz.",
+    scene: ComplaintPortalsScene,
+    quiz: complaintPortalsQuiz,
+    learn: complaintPortalsLearn,
+    exploreMorePath: null, // e.g. '/knowledge/complaint-portals' once it exists
+  },
+  'emergency-action': {
+    number: 6,
+    emoji: '📞',
+    theme: 'orange',
+    title: 'The Magic Number',
+    topic: 'Emergency Action',
+    blurb:
+      "Hi, I'm Ollie! Watch Riya learn the Magic Number 112, learn the key facts with me, then try a quick quiz.",
+    scene: EmergencyActionScene,
+    quiz: emergencyActionQuiz,
+    learn: emergencyActionLearn,
+    exploreMorePath: null, // e.g. '/knowledge/emergency-action' once it exists
   },
 };
 
@@ -586,6 +118,75 @@ function Owl({ size = 110 }) {
   );
 }
 
+// "Learn the Key Facts" stage (Modules 5 and 6).
+function LearnSection({ learn, explorePath, onStartQuiz, onExplore }) {
+  return (
+    <div className="module-learn">
+      <h2 className="module-learn__heading">{learn.heading}</h2>
+      <p className="module-learn__intro">{learn.intro}</p>
+
+      <ul className="module-learn__cards">
+        {learn.cards.map((card) => (
+          <li key={card.id} className="module-learn__card">
+            <span className="module-learn__card-emoji" aria-hidden="true">
+              {card.emoji}
+            </span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </li>
+        ))}
+      </ul>
+
+      <aside className="module-learn__remember" aria-labelledby="remember-heading">
+        <h3 id="remember-heading">Remember This! 🦉</h3>
+        <ul>
+          {learn.remember.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </aside>
+
+      <section className="module-learn__links" aria-labelledby="official-heading">
+        <h3 id="official-heading">Official websites (for you and a grown-up)</h3>
+        <ul>
+          {learn.links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+                <ExternalLink size={14} aria-hidden="true" />
+                <span className="module-learn__sr"> (opens in a new tab)</span>
+              </a>
+              <span className="module-learn__link-note">{link.note}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <p className="module-learn__disclaimer">{learn.disclaimer}</p>
+
+      <div className="module-learn__actions">
+        <button
+          type="button"
+          className="module-detail__start-btn"
+          onClick={onStartQuiz}
+        >
+          <Play size={22} fill="currentColor" />
+          Start Quiz
+        </button>
+        <button
+          type="button"
+          className="module-detail__btn module-detail__btn--ghost"
+          onClick={onExplore}
+          disabled={!explorePath}
+          title={explorePath ? undefined : 'Knowledge & Articles is coming soon'}
+        >
+          {explorePath ? 'Explore More' : 'Explore More (coming soon)'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ModuleDetail() {
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -595,7 +196,7 @@ export default function ModuleDetail() {
   const slug = id ?? pathname.split('/').filter(Boolean).pop();
   const config = MODULE_CONFIG[slug];
 
-  // intro -> animation -> quiz -> done
+  // intro -> animation -> (learn, Modules 5 & 6 only) -> quiz -> done
   const [stage, setStage] = useState('intro');
   const [result, setResult] = useState(null);
   // Changing "round" remounts the animation / quiz so they start fresh
@@ -603,7 +204,7 @@ export default function ModuleDetail() {
 
   const goBack = () => navigate('/modules');
 
-  // Modules 1, 2, 5, 6 land here until a teammate builds them.
+  // Modules 1 and 2 land here until a teammate builds them.
   if (!config) {
     return (
       <div className="module-detail theme-sky">
@@ -625,10 +226,22 @@ export default function ModuleDetail() {
   const maxXp = config.quiz.questions.reduce((sum, q) => sum + q.xp, 0);
 
   const steps = [
-    { emoji: '🎬', title: 'Watch the story', text: 'A short animation, under 1 minute.' },
+    {
+      emoji: '🎬',
+      title: 'Watch the story',
+      text: config.learn
+        ? 'A short animation, then key facts with Ollie.'
+        : 'A short animation, under 1 minute.',
+    },
     { emoji: '🎮', title: 'Play the quiz', text: `${total} quick questions.` },
     { emoji: '⭐', title: 'Earn XP', text: `Win up to ${maxXp} XP.` },
   ];
+
+  // Animation finished (or Skip pressed): go to the learn stage if this
+  // module has one, otherwise straight to the quiz (Modules 3 and 4).
+  const handleAnimationComplete = () => {
+    setStage(config.learn ? 'learn' : 'quiz');
+  };
 
   const handleFinishQuiz = (res) => {
     setResult(res);
@@ -645,6 +258,10 @@ export default function ModuleDetail() {
     setRound((r) => r + 1);
     setResult(null);
     setStage('quiz');
+  };
+
+  const exploreMore = () => {
+    if (config.exploreMorePath) navigate(config.exploreMorePath);
   };
 
   // Results screen values
@@ -715,7 +332,19 @@ export default function ModuleDetail() {
             <ModuleAnimation
               key={`anim-${round}`}
               scene={config.scene}
-              onComplete={() => setStage('quiz')}
+              onComplete={handleAnimationComplete}
+            />
+          </section>
+        )}
+
+        {/* Learn the Key Facts (Modules 5 & 6) */}
+        {stage === 'learn' && config.learn && (
+          <section className="module-detail__stage">
+            <LearnSection
+              learn={config.learn}
+              explorePath={config.exploreMorePath}
+              onStartQuiz={() => setStage('quiz')}
+              onExplore={exploreMore}
             />
           </section>
         )}
