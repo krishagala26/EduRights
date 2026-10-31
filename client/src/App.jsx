@@ -7,10 +7,10 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Kidsdashboard from "./pages/Kidsdashboard.jsx";
-import Teendashboard from "./pages/Teendashboard.jsx";
-import Modules from "./pages/Modules.jsx";
-import ModuleDetail from "./pages/ModuleDetail.jsx";
+import Profile from "./pages/Profile.jsx";
+import Modules from "./pages/KidsModules.jsx";
+import KidsModuleDetail from "./pages/KidsModuleDetail.jsx";
+
 import KnowledgeHub from "./pages/KnowledgeHub.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
@@ -34,28 +34,34 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
-          path="/kids-dashboard"
+          path="/profile"
           element={
             <ProtectedRoute>
-              <Kidsdashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/teen-dashboard"
-          element={
-            <ProtectedRoute>
-              <Teendashboard />
+              <Profile />
             </ProtectedRoute>
           }
         />
 
-        {/* Learning Modules */}
-        <Route path="/modules" element={<Modules />} />
-        <Route path="/modules/:id" element={<ModuleDetail />} />
+        <Route
+          path="/modules"
+          element={
+            <ProtectedRoute ageGroup="8-12">
+              <Modules />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/modules/:id"
+          element={
+            <ProtectedRoute ageGroup="8-12">
+              <KidsModuleDetail />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Knowledge Hub */}
+        
         <Route path="/knowledge-hub" element={<KnowledgeHub />} />
 
         {/* 404 Fallback */}

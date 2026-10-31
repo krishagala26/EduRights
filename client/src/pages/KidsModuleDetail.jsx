@@ -2,31 +2,31 @@ import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Play, ArrowLeft, RotateCcw, Sparkles, ExternalLink } from 'lucide-react';
 
-import ModuleAnimation from '../components/modules/ModuleAnimation.jsx';
-import ModuleQuiz from '../components/modules/ModuleQuiz.jsx';
+import ModuleAnimation from '../components/Kidsmodule/ModuleAnimation.jsx';
+import ModuleQuiz from '../components/Kidsmodule/ModuleQuiz.jsx';
 
-import EducationRightsScene from '../components/modules/EducationRightsScene.js';
-import PersonalSafetyScene from '../components/modules/PersonalSafetyScene.js';
-import ChildLabourScene from '../components/modules/ChildLabourScene.js';
-import InternetSafetyScene from '../components/modules/InternetSafetyScene.js';
-import ComplaintPortalsScene from '../components/modules/ComplaintPortalsScene.js';
-import EmergencyActionScene from '../components/modules/EmergencyActionScene.js';
-import educationRightsQuiz from '../components/modules/educationRightsQuiz.js';
-import personalSafetyQuiz from '../components/modules/personalSafetyQuiz.js';
-import childLabourQuiz from '../components/modules/childLabourQuiz.js';
-import internetSafetyQuiz from '../components/modules/internetSafetyQuiz.js';
-import complaintPortalsQuiz from '../components/modules/complaintPortalsQuiz.js';
-import emergencyActionQuiz from '../components/modules/emergencyActionQuiz.js';
+import EducationRightsScene from '../components/Kidsmodule/EducationRightsScene.js';
+import PersonalSafetyScene from '../components/Kidsmodule/PersonalSafetyScene.js';
+import ChildLabourScene from '../components/Kidsmodule/ChildLabourScene.js';
+import InternetSafetyScene from '../components/Kidsmodule/InternetSafetyScene.js';
+import ComplaintPortalsScene from '../components/Kidsmodule/ComplaintPortalsScene.js';
+import EmergencyActionScene from '../components/Kidsmodule/EmergencyActionScene.js';
+import educationRightsQuiz from '../components/Kidsmodule/educationRightsQuiz.js';
+import personalSafetyQuiz from '../components/Kidsmodule/personalSafetyQuiz.js';
+import childLabourQuiz from '../components/Kidsmodule/childLabourQuiz.js';
+import internetSafetyQuiz from '../components/Kidsmodule/internetSafetyQuiz.js';
+import complaintPortalsQuiz from '../components/Kidsmodule/complaintPortalsQuiz.js';
+import emergencyActionQuiz from '../components/Kidsmodule/emergencyActionQuiz.js';
 
 import {
   complaintPortalsLearn,
   emergencyActionLearn,
-} from '../components/modules/moduleLearnContent.js';
+} from '../components/Kidsmodule/moduleLearnContent.js';
 
-import './ModuleDetail.css';
-import './ModuleLearn.css';
+import './KidsModuleDetail.css';
+import './KidsModuleLearn.css';
 
-// "theme" picks the colour set (see .theme-* in ModuleDetail.css).
+// "theme" picks the colour set (see .theme-* in KidsModuleDetail.css).
 // "learn" (optional) adds the "Learn the Key Facts" stage before the quiz.
 // "exploreMorePath" (optional) is the future Knowledge & Articles route.
 // Leave it null until that feature exists; the Explore More button stays
@@ -205,7 +205,7 @@ function LearnSection({ learn, explorePath, onStartQuiz, onExplore }) {
   );
 }
 
-export default function ModuleDetail() {
+export default function KidsModuleDetail() {
   const { id } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();

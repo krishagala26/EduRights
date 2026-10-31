@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Outfit:wght@500;600;700&display=swap');
+
+/* Every rule is scoped to .tp-page / .tp-* so nothing here can leak
+   into other pages. */
+
+.tp-page {
+  --ink: #24204A;
+  --muted: #5B5780;
+  --grape: #6C4CF5;
+  min-height: 100vh;
+  background: #F4F3FF;
+  color: var(--ink);
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 28px clamp(16px, 4vw, 48px) 64px;
+}
+
+.tp-page *,
+.tp-page *::before,
+.tp-page *::after {
+  box-sizing: border-box;
+}
+
+.tp-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tp-muted {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ---------- Back button ---------- */
+.tp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+}
+.tp-back:hover {
+  background: #FFF1C2;
+}
+.tp-back:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+/* ---------- Header ---------- */
+.tp-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.tp-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  background: #FF6F61;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.tp-head__text {
+  flex: 1;
+  min-width: 200px;
+}
+.tp-head__text h1 {
+  margin: 0;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.15;
+}
+.tp-head__text p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 0;
+}
+
+.tp-chip {
+  padding: 2px 12px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 999px;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.tp-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 9px 18px;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+}
+.tp-logout:hover {
+  background: #FFD9D4;
+}
+.tp-logout:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+.tp-logout:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- Stat tiles ---------- */
+.tp-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.tp-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-weight: 800;
+}
+.tp-tile b {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+.tp-tone-sun   { background: #FFF1C2; }
+.tp-tone-grape { background: #E4DCFF; }
+.tp-tone-coral { background: #FFD9D4; }
+.tp-tone-mint  { background: #CFF6E8; }
+
+/* ---------- Cards ---------- */
+.tp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.tp-card {
+  min-width: 0;
+  padding: clamp(16px, 2.4vw, 24px);
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 0 3px 0 var(--ink);
+}
+.tp-card h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.tp-card h2 .tp-muted {
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+
+.tp-details {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.tp-details > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E3E1F5;
+}
+.tp-details > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.tp-details dt {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.tp-details dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-weight: 800;
+  word-break: break-word;
+}
+.tp-note {
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.tp-text {
+  margin: 0 0 10px;
+}
+.tp-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Badges ---------- */
+.tp-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 18px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.88rem;
+  line-height: 1.2;
+}
+
+.tp-medal {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  background: #E4DCFF;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 28px;
+}
+
+.tp-badge.is-locked .tp-medal {
+  background: #E7E6F0;
+  opacity: 0.85;
+}
+.tp-badge.is-locked .tp-badge__name {
+  color: var(--muted);
+}
+.tp-badge__hint {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.tp-page button:focus-visible {
+  outline: 3px solid var(--grape);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 800px) {
+  .tp-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-back,
+  .tp-logout {
+    transition: none;
+  }
+}

@@ -1,5 +1,5 @@
 /* Styles for the "Learn the Key Facts" stage (Modules 5 and 6) only.
-   Self-contained: it does not edit ModuleDetail.css or affect Modules 3/4.
+   Self-contained: it does not edit KidsModuleDetail.css or affect Modules 3/4.
    It only sets its own --learn-* variables, so it works with any theme. */
 
 .module-detail {

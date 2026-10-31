@@ -5,7 +5,7 @@
 3. **Setup MongoDB** — connect local/Atlas instance, verify `connectDB` succeeds. (Member 3)
 4. **Registration/Login (FR-01)** — implement `authController`, hash passwords, issue JWT. (Member 2)
 5. **Dashboard (FR-01)** — build real Dashboard UI, fetch user + progress. (Member 1)
-6. **Learning modules (FR-02)** — implement `moduleController` + Modules/ModuleDetail UI. (Member 1 + 4)
+6. **Learning modules (FR-02)** — implement `moduleController` + Modules/KidsModuleDetail UI. (Member 1 + 4)
 7. **Quiz system (FR-03)** — implement `quizController` + Quiz UI + submission flow. (Member 2 + 1)
 8. **Gamification (FR-04, FR-05)** — points/level/badge logic on quiz submit, Progress model wiring. (Member 3)
 9. **Knowledge Hub (FR-07)** — real content + UI. (Member 4)
