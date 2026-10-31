@@ -7,9 +7,10 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Modules from "./pages/Modules.jsx";
-import ModuleDetail from "./pages/ModuleDetail.jsx";
-import Quiz from "./pages/Quiz.jsx";
+import Profile from "./pages/Profile.jsx";
+import Modules from "./pages/KidsModules.jsx";
+import KidsModuleDetail from "./pages/KidsModuleDetail.jsx";
+
 import KnowledgeHub from "./pages/KnowledgeHub.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
@@ -30,18 +31,33 @@ export default function App() {
           }
         />
 
-        <Route path="/modules" element={<Modules />} />
-        <Route path="/modules/:id" element={<ModuleDetail />} />
-
         <Route
-          path="/quiz/:id"
+          path="/profile"
           element={
             <ProtectedRoute>
-              <Quiz />
+              <Profile />
             </ProtectedRoute>
           }
         />
 
+        <Route
+          path="/modules"
+          element={
+            <ProtectedRoute ageGroup="8-12">
+              <Modules />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/modules/:id"
+          element={
+            <ProtectedRoute ageGroup="8-12">
+              <KidsModuleDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        
         <Route path="/knowledge-hub" element={<KnowledgeHub />} />
 
         <Route path="*" element={<NotFound />} />

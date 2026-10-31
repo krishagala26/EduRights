@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 // Owner: Member 1 (Team Lead + Frontend)
+// Dashboard, Modules and Knowledge Hub are reached from the dashboard's
+// own sidebar, so they are not repeated here.
 export default function Navbar() {
   return (
     <nav
@@ -20,18 +22,6 @@ export default function Navbar() {
         }}
       >
         EduRights
-      </Link>
-
-      <Link to="/dashboard" style={{ color: "white" }}>
-        Dashboard
-      </Link>
-
-      <Link to="/modules" style={{ color: "white" }}>
-        Modules
-      </Link>
-
-      <Link to="/knowledge-hub" style={{ color: "white" }}>
-        Knowledge Hub
       </Link>
 
       <Link

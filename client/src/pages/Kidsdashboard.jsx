@@ -1,3 +1,4 @@
+
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import "./KidsDashboard.css";
 
@@ -10,19 +11,19 @@ const MOCK_DATA = {
   levelThresholds: [0, 100, 250, 450, 700, 1000],
   nextReward: { emoji: "🎁", label: "Mystery badge" },
   modules: [
-    { id: "education", emoji: "📚", title: "Right to Education", status: "done", progress: 100, quizScore: 90 },
-    { id: "safety", emoji: "🛡️", title: "Right to Safety", status: "done", progress: 100, quizScore: 80 },
-    { id: "play", emoji: "⚽", title: "Right to Play", status: "current", progress: 40, quizScore: null },
-    { id: "health", emoji: "🩺", title: "Right to Health", status: "locked", progress: 0, quizScore: null },
-    { id: "voice", emoji: "🗣️", title: "Right to Be Heard", status: "locked", progress: 0, quizScore: null },
-    { id: "identity", emoji: "🪪", title: "Right to Identity", status: "locked", progress: 0, quizScore: null },
+    { id: "education", emoji: "📚", title: "The Shield of Knowledge", status: "done", progress: 100, quizScore: 90 },
+    { id: "personal-safety", emoji: "🛡️", title: "The Body Guard Rules", status: "done", progress: 100, quizScore: 80 },
+    { id: "child-labour", emoji: "⚽", title: "Playgrounds, Not Factories", status: "current", progress: 40, quizScore: null },
+    { id: "internet-safety", emoji: "💻", title: "The Digital Shield", status: "open", progress: 0, quizScore: null },
+    { id: "complaint-portals", emoji: "📮", title: "Digital Complaint Boxes", status: "open", progress: 0, quizScore: null },
+    { id: "emergency-action", emoji: "📞", title: "The Magic Number", status: "open", progress: 0, quizScore: null },
   ],
   badges: [
     { id: "first", emoji: "🚀", name: "First Steps", earned: true },
     { id: "streak3", emoji: "🔥", name: "3-Day Streak", earned: true },
     { id: "quiz90", emoji: "🧠", name: "Quiz Star", earned: true },
     { id: "reader", emoji: "📚", name: "Bookworm", earned: true },
-    { id: "voice", emoji: "🗣️", name: "Voice of Change", earned: false, hint: "Finish “Right to Be Heard”" },
+    { id: "voice", emoji: "🗣️", name: "Voice of Change", earned: false, hint: "Finish “Digital Complaint Boxes”" },
     { id: "champ", emoji: "🏆", name: "Rights Champion", earned: false, hint: "Finish all 6 topics" },
   ],
   challenge: {
@@ -33,8 +34,8 @@ const MOCK_DATA = {
   },
   activity: [
     { icon: "🏅", when: "Today", text: "Earned the “3-Day Streak” badge" },
-    { icon: "✅", when: "Yesterday", text: "Scored 80% in the Right to Safety quiz (+40 XP)" },
-    { icon: "📖", when: "2 days ago", text: "Finished the Right to Education topic" },
+    { icon: "✅", when: "Yesterday", text: "Scored 80% in The Body Guard Rules quiz (+40 XP)" },
+    { icon: "📖", when: "2 days ago", text: "Finished The Shield of Knowledge" },
   ],
   leaderboard: [
     { nick: "MangoNinja", xp: 410 },
@@ -255,7 +256,7 @@ function AdventurePath({ modules }) {
           {list.map((m, i) => {
             const [x, y] = NODE_POS[i];
             const locked = m.status === "locked";
-            const label = m.status === "done" ? "completed" : locked ? "locked" : "in progress";
+            const label = m.status === "done" ? "completed" : locked ? "locked" : m.status === "open" ? "not started" : "in progress";
             return (
               <li key={m.id} style={{ left: `${x}%`, top: `${y}%` }}>
                 <button
@@ -419,8 +420,12 @@ export default function KidsDashboard({
     },
     openLocked: (prev) => say(prev ? `Finish “${prev.title}” first to unlock this topic.` : "This topic is locked."),
     go: (id, label) => {
-      if (onNavigate) onNavigate(id);
-      else if (id !== "dashboard") say(`The ${label} page is not connected yet.`);
+      if (onNavigate) {
+        // onNavigate returns false when that page has no route yet
+        if (onNavigate(id) === false) say(`The ${label} page is not connected yet.`);
+      } else if (id !== "dashboard") {
+        say(`The ${label} page is not connected yet.`);
+      }
     },
     askFeedback: (m) => setFeedbackFor(m),
   };

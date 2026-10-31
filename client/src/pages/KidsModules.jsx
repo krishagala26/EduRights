@@ -1,9 +1,11 @@
 // Owner: Member 1/4 — list of learning modules (FR-02), call GET /api/modules
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Modules.css";
+import { ArrowLeft } from "lucide-react";
+import "./KidsModules.css";
 
-// "tone" picks the card colour (see .tone-* in Modules.css).
+// "tone" picks the card colour (see .tone-* in KidsModules.css).
 // "animated" shows the "Animated story" tag on modules that have an
 // animation + quiz (Modules 3 and 4).
 const modules = [
@@ -112,6 +114,17 @@ function Modules() {
 
   return (
     <div className="modules-page">
+
+      {/* Back to the dashboard (the navbar no longer has a Dashboard link) */}
+      <div className="modules-topbar">
+        <button
+          type="button"
+          className="modules-back"
+          onClick={() => navigate("/dashboard")}
+        >
+          <ArrowLeft size={18} /> 
+        </button>
+      </div>
 
       {/* Header */}
       <section className="modules-hero">

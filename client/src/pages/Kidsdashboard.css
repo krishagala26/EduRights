@@ -90,6 +90,7 @@ body{margin:0;display:block}
   background:#E7E6F0;border:var(--bd) solid var(--ink);box-shadow:0 5px 0 var(--ink)}
 .node.done .circle{background:var(--mint)}
 .node.current .circle{background:var(--sun)}
+.node.open .circle{background:var(--sky-t)}
 .node.current .circle::after{content:'';position:absolute;inset:-10px;border-radius:50%;border:var(--bd) solid var(--coral);
   animation:pulse 1.8s ease-out infinite}
 .node .tick{position:absolute;right:-8px;top:-8px;width:26px;height:26px;border-radius:50%;background:#fff;

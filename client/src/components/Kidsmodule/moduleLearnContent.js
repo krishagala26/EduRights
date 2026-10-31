@@ -1,5 +1,5 @@
 // "Learn the Key Facts" content for Modules 5 and 6. Pure data, no logic.
-// Rendered by the LearnSection component inside ModuleDetail.jsx.
+// Rendered by the LearnSection component inside KidsModuleDetail.jsx.
 // This is educational information for children, not legal advice.
 // Essential facts live here so nothing requires opening an external site.
 
