@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 import digitalFingerprint from '../components/Teenmodule/digitalFingerprint.js';
 import consentBoundaries from '../components/Teenmodule/consentBoundaries.js';
-
+import juvenileJustice from '../components/Teenmodule/juvenileJustice.js';
+import adolescentLabour from '../components/Teenmodule/adolescentLabour.js';
 
 
 
@@ -85,6 +86,8 @@ export const teenModules = [
 const MODULE_CONTENT = {
   "digital-fingerprint": digitalFingerprint,
   "consent-boundaries": consentBoundaries,
+  "juvenile-justice": juvenileJustice,
+  "adolescent-labour": adolescentLabour,
 };
 
 /* ========================================================================== */

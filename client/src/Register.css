@@ -1,4 +1,4 @@
-.register-container {
+ .register-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -74,4 +74,5 @@
 
 .register-box button:hover {
   background: #3730a3;
-}
+} 
+ 

@@ -42,4 +42,83 @@ button {
 
 button:hover {
   transform: scale(1.05);
+}  */
+
+/* DECORATIVE OWL */
+.form-box{
+  content: "🦉";
+  display: block;
+  font-size: 55px;
+  line-height: 1;
+  margin: 5px auto 12px;
+  animation: owlFloat 3s ease-in-out infinite;
 }
+/* LOGIN PAGE */
+.container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    135deg,
+    #d9d5ff 0%,
+    #c6d9ff 45%,
+    #d7edff 100%
+  );
+
+  font-family: "Comic Sans MS", "Poppins", cursive, sans-serif;
+}
+
+
+/* LOGIN CARD */
+.form-box {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 38px 35px 35px;
+  box-sizing: border-box;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid rgba(139, 124, 255, 0.25);
+  border-radius: 28px;
+
+  box-shadow:
+    0 12px 0 #5140d8,
+    0 25px 45px rgba(75, 62, 180, 0.18);
+
+  overflow: hidden;
+  animation: cardAppear 0.6s ease;
+}
+
+/* COLORFUL TOP BORDER */
+.form-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 9px;
+
+  background: linear-gradient(
+    90deg,
+    #6558f5,
+    #9271ff,
+    #69a8ff,
+    #c17aff
+  );
+}
+
+
+/* LOGIN HEADING */
+.form-box h2 {
+  color: #5127b8;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
