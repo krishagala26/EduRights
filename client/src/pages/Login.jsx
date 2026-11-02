@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Login.css";
@@ -5,7 +6,11 @@ import "../Login.css";
 import { auth, db } from "./Firebase.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+
 import { doc, getDoc } from "firebase/firestore";
 
 function Login() {
@@ -15,25 +20,24 @@ function Login() {
   const nav = useNavigate();
   const { login } = useAuth();
 
+  // Login handler
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (username === "" || password === "") {
-      alert("Cannot be empty");
+    if (!username.trim() || !password) {
+      alert("Please enter your email and password.");
       return;
     }
 
     try {
-      // 1. Login using Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        username,
+        username.trim(),
         password
       );
 
       const user = userCredential.user;
 
-      // 2. Get user's information from Firestore
       const userDoc = await getDoc(doc(db, "users", user.uid));
 
       if (!userDoc.exists()) {
@@ -43,22 +47,14 @@ function Login() {
 
       const userData = userDoc.data();
 
-      // Register.jsx should store DOB as "birthDate". A few other common
-      // names are checked too, in case it was saved under a different one.
       const birthDate =
         userData.birthDate ??
         userData.birthdate ??
         userData.dob ??
         userData.dateOfBirth;
 
-      // 3. Calculate user's age
       const age = calculateAge(birthDate);
 
-      console.log("Logged in user:", userData);
-      console.log("Raw birth date value:", birthDate);
-      console.log("Age:", age);
-
-      // 4. Decide which personalized dashboard to show
       let ageGroup;
 
       if (age >= 8 && age <= 12) {
@@ -66,29 +62,23 @@ function Login() {
       } else if (age >= 13 && age <= 16) {
         ageGroup = "13-16";
       } else {
-        // For users outside the specified age groups
         ageGroup = "13-16";
       }
 
-      console.log("Dashboard age group:", ageGroup);
+      const loggedInUser = {
+        ...userData,
+        ageGroup,
+        uid: user.uid,
+      };
 
-      // 5. Tell AuthContext a user is now logged in.
-      // ProtectedRoute checks AuthContext's user, not Firebase directly,
-      // so without this call it would always redirect back to /login.
-      login(
-        { ...userData, ageGroup, uid: user.uid },
-        await user.getIdToken()
-      );
+      login(loggedInUser, await user.getIdToken());
 
       alert("Login Successful!");
 
-      // 6. Navigate to Dashboard
-      // Still pass ageGroup and user via route state too, as a fast path
-      // for Dashboard.jsx to use immediately after this navigation.
       nav("/dashboard", {
         state: {
-          ageGroup: ageGroup,
-          user: { ...userData, ageGroup, uid: user.uid },
+          ageGroup,
+          user: loggedInUser,
         },
       });
     } catch (error) {
@@ -102,6 +92,8 @@ function Login() {
         alert("Invalid email or password.");
       } else if (error.code === "auth/invalid-email") {
         alert("Please enter a valid email address.");
+      } else if (error.code === "auth/too-many-requests") {
+        alert("Too many attempts. Please try again later.");
       } else {
         alert(error.message);
       }
@@ -111,30 +103,74 @@ function Login() {
     }
   };
 
-  // Turn whatever was saved in Firestore into a real Date.
-  // Handles Firestore Timestamps, DD/MM/YYYY strings and normal date strings.
+  // Forgot Password handler
+  const handleForgotPassword = async () => {
+    const email = username.trim();
+
+    if (!email) {
+      alert("Please enter your registered email address first.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+
+      alert(
+        "Password reset email sent! Please check your inbox and spam folder."
+      );
+    } catch (error) {
+      console.error("Password reset error:", error);
+
+      if (error.code === "auth/invalid-email") {
+        alert("Please enter a valid email address.");
+      } else if (error.code === "auth/user-not-found") {
+        alert("No account found with this email address.");
+      } else {
+        alert(error.message);
+      }
+    }
+  };
+
+  // Convert stored birth date into a Date object
   function toDate(value) {
     if (!value) return null;
-    if (typeof value.toDate === "function") return value.toDate(); // Firestore Timestamp
-    if (value instanceof Date) return value;
+
+    if (typeof value.toDate === "function") {
+      return value.toDate();
+    }
+
+    if (value instanceof Date) {
+      return value;
+    }
+
     if (typeof value === "object" && "seconds" in value) {
       return new Date(value.seconds * 1000);
     }
+
     if (typeof value === "string") {
-      // DD/MM/YYYY, DD-MM-YYYY or DD.MM.YYYY
-      const m = value.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/);
-      if (m) return new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]));
+      const match = value.match(
+        /^(\d{1,2})[/. -](\d{1,2})[/. -](\d{4})$/
+      );
+
+      if (match) {
+        return new Date(
+          Number(match[3]),
+          Number(match[2]) - 1,
+          Number(match[1])
+        );
+      }
     }
-    const d = new Date(value);
-    return Number.isNaN(d.getTime()) ? null : d;
+
+    const date = new Date(value);
+
+    return Number.isNaN(date.getTime()) ? null : date;
   }
 
-  // Calculate age from birth date
+  // Calculate age
   function calculateAge(birthDate) {
     const dob = toDate(birthDate);
-    if (!dob) {
-      return 0;
-    }
+
+    if (!dob) return 0;
 
     const today = new Date();
 
@@ -153,59 +189,64 @@ function Login() {
   }
 
   return (
-    <div className="container">
-      <div className="form-box">
-        <h2>Login</h2>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Welcome Back!</h2>
+        <p>Login to continue your EduRights journey</p>
 
         <form onSubmit={handleSubmit}>
-          {/* Email */}
-          <div className="form-group">
+          <div className="login-form-group">
             <label>Email</label>
 
             <input
               type="email"
+              placeholder="Enter your registered email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
 
-          {/* Password */}
-          <div className="form-group">
+          <div className="login-form-group">
             <label>Password</label>
 
             <input
               type="password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          <button type="submit">
+          <button type="submit" className="login-submit-btn">
             Login
           </button>
-
-          <div className="button-group">
-            {/* Forgot Password */}
-            <button
-              type="button"
-              onClick={() => nav("/forgot")}
-              style={{ backgroundColor: "#ffc107" }}
-            >
-              Forgot Password
-            </button>
-
-            {/* Signup */}
-            <button
-              type="button"
-              onClick={() => nav("/")}
-              style={{ backgroundColor: "#28a745" }}
-            >
-              Signup
-            </button>
-          </div>
         </form>
+
+        <button
+          type="button"
+          className="login-forgot-btn"
+          onClick={handleForgotPassword}
+        >
+          Forgot Password?
+        </button>
+
+        <button
+          type="button"
+          className="login-signup-btn"
+          onClick={() => nav("/register")}
+        >
+          Create an Account
+        </button>
+
+        <button
+          type="button"
+          className="login-home-btn"
+          onClick={() => nav("/")}
+        >
+          ← Back to Home
+        </button>
       </div>
     </div>
   );

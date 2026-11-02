@@ -133,6 +133,14 @@ const Register = () => {
           />
 
           <button type="submit">Register</button>
+
+          <button
+            type="button"
+            className="register-home-btn"
+            onClick={() => nav("/")}
+          >
+  ← Back to Home
+</button>
         </form>
       </div>
     </div>
