@@ -5,7 +5,8 @@ import digitalFingerprint from '../components/Teenmodule/digitalFingerprint.js';
 import consentBoundaries from '../components/Teenmodule/consentBoundaries.js';
 import juvenileJustice from '../components/Teenmodule/juvenileJustice.js';
 import adolescentLabour from '../components/Teenmodule/adolescentLabour.js';
-
+import consumerRights from '../components/Teenmodule/consumerRights.js';
+import grievancePortals from '../components/Teenmodule/grievancePortals.js';
 
 
 /* ========================================================================== */
@@ -88,6 +89,8 @@ const MODULE_CONTENT = {
   "consent-boundaries": consentBoundaries,
   "juvenile-justice": juvenileJustice,
   "adolescent-labour": adolescentLabour,
+  "consumer-rights": consumerRights,
+  "grievance-portals": grievancePortals
 };
 
 /* ========================================================================== */
